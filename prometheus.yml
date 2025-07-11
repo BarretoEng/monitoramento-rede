@@ -33,7 +33,7 @@ scrape_configs:
         target_label: instance
 
       - target_label: __address__
-        replacement: localhost:9115
+        replacement: blackbox:9115
 
       - target_label: __metrics_path__
         replacement: /probe
@@ -61,7 +61,7 @@ scrape_configs:
         target_label: instance
 
       - target_label: __address__
-        replacement: localhost:9115
+        replacement: blackbox:9115
 
       - target_label: __metrics_path__
         replacement: /probe
