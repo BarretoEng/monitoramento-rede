@@ -1,0 +1,70 @@
+global:
+  scrape_interval: 5s  # Intervalo de coleta para todos os jobs
+
+rule_files:
+  - "rules.yml"
+
+scrape_configs:
+  # Alvos com ICMP (ping)
+  - job_name: 'blackbox_icmp'
+    scrape_interval: 5s
+    scrape_timeout: 1s
+    metrics_path: /probe
+    params:
+      module: [icmp]
+
+    static_configs:
+      - targets:
+          - google.com
+          - youtube.com
+          - facebook.com
+          - whatsapp.com
+          - instagram.com
+          - globo.com
+          - uol.com.br
+          - openai.com
+          - cloudflare.com
+
+    relabel_configs:
+      - source_labels: [__address__]
+        target_label: __param_target
+
+      - source_labels: [__param_target]
+        target_label: instance
+
+      - target_label: __address__
+        replacement: localhost:9115
+
+      - target_label: __metrics_path__
+        replacement: /probe
+
+      - target_label: job
+        replacement: blackbox_icmp
+
+  # Alvo específico: Netflix (usando HTTP 2xx)
+  - job_name: 'blackbox_http'
+    scrape_interval: 10s
+    scrape_timeout: 5s
+    metrics_path: /probe
+    params:
+      module: [http_2xx]
+
+    static_configs:
+      - targets:
+          - https://www.netflix.com
+
+    relabel_configs:
+      - source_labels: [__address__]
+        target_label: __param_target
+
+      - source_labels: [__param_target]
+        target_label: instance
+
+      - target_label: __address__
+        replacement: localhost:9115
+
+      - target_label: __metrics_path__
+        replacement: /probe
+
+      - target_label: job
+        replacement: blackbox_http

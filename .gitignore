@@ -1,0 +1,10 @@
+# Dados persistentes do Prometheus e Grafana (NÃO versionar!)
+prometheus_data/
+grafana/
+grafana-storage/
+
+# Arquivos temporários
+*.log
+*.pid
+*.db
+*.sqlite*

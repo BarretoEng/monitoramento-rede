@@ -1,0 +1,12 @@
+groups:
+  - name: alertas_ping
+    interval: 10s
+    rules:
+      - alert: MuitosPingsFalhando
+        expr: (1 - avg_over_time(probe_success{job="blackbox_icmp"}[1m])) > 0.3
+        for: 30s
+        labels:
+          severity: warning
+        annotations:
+          summary: "Falhas excessivas de ping para {{ $labels.instance }}"
+          description: "Mais de 30% dos pings falharam nos últimos 60 segundos para {{ $labels.instance }}."
