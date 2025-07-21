@@ -1,5 +1,6 @@
 # Ignorar o banco de dados do Grafana (salva usuários e configs locais)
-grafana.db
+grafana/grafana.db
+
 
 # Ignorar dados persistidos localmente (pasta de dados do Prometheus, se estiver fora do container)
 prometheus_data/
