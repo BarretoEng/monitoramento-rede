@@ -1,0 +1,21 @@
+# Ignorar o banco de dados do Grafana (salva usuários e configs locais)
+grafana.db
+
+# Ignorar dados persistidos localmente (pasta de dados do Prometheus, se estiver fora do container)
+prometheus_data/
+
+# Logs
+*.log
+
+# Backups automáticos
+*.bak
+*.tmp
+*.swp
+
+# Arquivos do VSCode
+.vscode/
+
+# Arquivos de sistema (Windows/macOS/Linux)
+.DS_Store
+Thumbs.db
+desktop.ini
