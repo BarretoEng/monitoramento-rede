@@ -1,0 +1,40 @@
+groups:
+  - name: icmp_alerts
+    rules:
+      - alert: PingFailureRateWarning
+        expr: (1 - avg_over_time(probe_success{job="icmp_ping"}[5m])) > 0.3
+        for: 1m
+        labels:
+          severity: warning
+        annotations:
+          summary: "⚠️ Falha de ping elevada em {{ $labels.instance }}"
+          description: "Mais de 30% das sondas falharam nos últimos 5 minutos para o alvo {{ $labels.instance }}."
+
+      - alert: PingFailureRateCritical
+        expr: (1 - avg_over_time(probe_success{job="icmp_ping"}[5m])) > 0.5
+        for: 1m
+        labels:
+          severity: critical
+        annotations:
+          summary: "🚨 Falha de ping crítica em {{ $labels.instance }}"
+          description: "Mais de 50% das sondas falharam nos últimos 5 minutos para o alvo {{ $labels.instance }}."
+
+  - name: http_alerts
+    rules:
+      - alert: HTTPDown
+        expr: probe_success{job="blackbox_http"} == 0
+        for: 1m
+        labels:
+          severity: critical
+        annotations:
+          summary: "🚨 Site fora do ar: {{ $labels.instance }}"
+          description: "O alvo {{ $labels.instance }} não respondeu com sucesso às requisições HTTP."
+
+      - alert: HTTPLatencyHigh
+        expr: avg_over_time(probe_duration_seconds{job="blackbox_http"}[2m]) > 1
+        for: 1m
+        labels:
+          severity: warning
+        annotations:
+          summary: "⚠️ Tempo de resposta alto em {{ $labels.instance }}"
+          description: "O tempo médio de resposta HTTP excedeu 1 segundo nos últimos 2 minutos para {{ $labels.instance }}."
