@@ -26,12 +26,15 @@ Este projeto fornece uma stack de monitoramento de rede utilizando **Docker**, *
 ```bash
 git clone https://github.com/BarretoEng/monitoramento-rede.git
 cd monitoramento-rede
-
+```
 
 2. Suba os containers:
 
+```
 docker-compose up -d
+```
 
 3. Acesse o Grafana:
-
+```
 http://localhost:3000
+```
