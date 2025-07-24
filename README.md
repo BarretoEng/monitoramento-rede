@@ -38,3 +38,8 @@ docker-compose up -d
 ```
 http://localhost:3000
 ```
+
+### Licença
+
+Este projeto está licenciado sob a Licença MIT - veja o arquivo [LICENSE](./LICENSE) para mais detalhes.
+
